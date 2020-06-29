@@ -1,0 +1,33 @@
+{
+  "name": "nuxt_netlify",
+  "version": "1.0.0",
+  "description": "My glorious Nuxt.js project",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "faunadb": "^2.14.2",
+    "nuxt": "^2.0.0",
+    "twitter": "^1.7.1",
+    "vue-infinite-loading": "^2.4.5",
+    "vue-magic-grid": "0.0.4",
+    "vue-masonry": "^0.11.8",
+    "vue-tweet-embed": "^2.4.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/vuetify": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2"
+  }
+}
