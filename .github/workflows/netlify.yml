@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Post netlify build hook
-        run: curl -X POST -d {} https://objective-bartik-4a87e7.netlify.app/.netlify/functions/tw-api
+        run: curl -X POST -d {} https://objective-bartik-4a87e7.netlify.app/api/tw-api
 
 #       - uses: actions/checkout@v2
 
