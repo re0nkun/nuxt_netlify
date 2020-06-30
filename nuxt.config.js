@@ -1,10 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 const { 
   FAUNA_KEY,
-  consumer_key,
-  consumer_secret,
-  access_token_key,
-  access_token_secret
+  // consumer_key,
+  // consumer_secret,
+  // access_token_key,
+  // access_token_secret
 } = process.env
 
 export default {
@@ -15,10 +15,10 @@ export default {
   */
   env: {
     FAUNA_KEY,
-    consumer_key,
-    consumer_secret,
-    access_token_key,
-    access_token_secret
+    // consumer_key,
+    // consumer_secret,
+    // access_token_key,
+    // access_token_secret
   },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
