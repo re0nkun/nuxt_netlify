@@ -15,7 +15,7 @@ var client = new Twitter({
 });
 
 exports.handler = async (event, context) => {
-  try {
+  // try {
     // GET
     // if (event.httpMethod === 'GET') {
     //   const req = await faunaClient.query(q.Map(
@@ -91,12 +91,12 @@ exports.handler = async (event, context) => {
         body: 'post'
       }
     // }
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: err.toString()
-    }
-  }
+  // } catch (err) {
+  //   return {
+  //     statusCode: 500,
+  //     body: err.toString()
+  //   }
+  // }
 }
 
 // exports.handler = function(event, context, callback) {
