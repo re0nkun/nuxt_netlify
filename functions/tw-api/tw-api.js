@@ -74,17 +74,17 @@ exports.handler = async (event, context) => {
       }
       await searchTweet('函館')
 
-      // console.log(id_str_arr)
+      console.log(id_str_arr)
 
       // faunaDB
-      const req = await faunaClient.query(q.Create(q.Collection("id_strings"), {
-        data: {
-          date: new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }),
-          id_strings: id_str_arr
-        }
-      }))
+      // const req = await faunaClient.query(q.Create(q.Collection("id_strings"), {
+      //   data: {
+      //     date: new Date().toLocaleString({ timeZone: 'Asia/Tokyo' }),
+      //     id_strings: id_str_arr
+      //   }
+      // }))
 
-      console.log(req)
+      // console.log(req)
 
       return {
         statusCode: 200,
