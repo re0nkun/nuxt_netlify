@@ -1,5 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
-const { FAUNA_KEY } = process.env
+const { 
+  FAUNA_KEY,
+  consumer_key,
+  consumer_secret,
+  access_token_key,
+  access_token_secret
+} = process.env
 
 export default {
   mode: 'spa',
@@ -8,7 +14,11 @@ export default {
   ** Headers of the page
   */
   env: {
-    FAUNA_KEY
+    FAUNA_KEY,
+    consumer_key,
+    consumer_secret,
+    access_token_key,
+    access_token_secret
   },
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
