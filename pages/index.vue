@@ -12,7 +12,7 @@
         md6
       >
         <div class="mx-2">
-          {{ id_str }}
+          <!-- {{ id_str }} -->
           <!-- <EmbbedTw :tweet-id="id_str" /> -->
           <Tweet :id="id_str" />
         </div>
@@ -44,6 +44,7 @@ export default {
         q.Paginate(q.Match(q.Index('ids_sort_by_ref_desc')), { size: 1 }),
         q.Lambda('attr', q.Get(q.Var('attr')))
       ))
+      console.log(res)
 
       const idStrs = await res.data[0].data.id_strings
 
