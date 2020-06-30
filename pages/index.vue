@@ -14,7 +14,7 @@
         <div class="mx-2">
           {{ id_str }}
           <!-- <EmbbedTw :tweet-id="id_str" /> -->
-          <!-- <Tweet :id="id_str" /> -->
+          <Tweet :id="id_str" />
         </div>
       </v-col>
     </v-row>
@@ -27,7 +27,7 @@
 <script>
 import faunadb, { query as q } from 'faunadb'
 // import EmbbedTw from '@/components/Embbed_tw'
-// import { Tweet } from 'vue-tweet-embed'
+import { Tweet } from 'vue-tweet-embed'
 
 const faunaClient = new faunadb.Client({
   secret: process.env.FAUNA_KEY
@@ -36,7 +36,7 @@ const faunaClient = new faunadb.Client({
 export default {
   components: {
     // EmbbedTw
-    // Tweet
+    Tweet
   },
   async asyncData () {
     try {
