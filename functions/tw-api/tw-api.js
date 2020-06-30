@@ -17,20 +17,20 @@ var client = new Twitter({
 exports.handler = async (event, context) => {
   try {
     // GET
-    if (event.httpMethod === 'GET') {
-      const req = await faunaClient.query(q.Map(
-        q.Paginate(q.Match(q.Index("ids_sort_by_ref_desc")), { size: 1 }),
-        q.Lambda("attr", q.Get(q.Var("attr")))
-      ))
+    // if (event.httpMethod === 'GET') {
+    //   const req = await faunaClient.query(q.Map(
+    //     q.Paginate(q.Match(q.Index("ids_sort_by_ref_desc")), { size: 1 }),
+    //     q.Lambda("attr", q.Get(q.Var("attr")))
+    //   ))
 
-      return {
-        statusCode: 200,
-        body: JSON.stringify(req.data, null, 2)
-      }
-    }
+    //   return {
+    //     statusCode: 200,
+    //     body: JSON.stringify(req.data, null, 2)
+    //   }
+    // }
 
     // POST
-    if (event.httpMethod === 'POST') {
+    // if (event.httpMethod === 'POST') {
       // TwitterApi
       const id_str_arr = []
 
@@ -90,7 +90,7 @@ exports.handler = async (event, context) => {
         statusCode: 200,
         body: 'post'
       }
-    }
+    // }
   } catch (err) {
     return {
       statusCode: 500,
