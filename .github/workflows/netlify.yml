@@ -1,0 +1,45 @@
+name: Netlify
+
+on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
+  schedule:
+    - cron: '0 0/12 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post netlifyfunctions
+        run: curl -X POST -d {} https://objective-bartik-4a87e7.netlify.app/api/tw-api
+
+#       - uses: actions/checkout@v2
+
+#       # 「./dist」にビルド結果が生成する。好きなビルドに変えましょう。
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 12.x
+#       - run: npm ci
+#       - run: npm run generate
+
+#       - name: Deploy to Netlify
+#         uses: nwtgck/actions-netlify@v1.1
+#         with:
+#           publish-dir: './dist'
+#           production-branch: master
+#           github-token: ${{ secrets.GITHUB_TOKEN }}
+#           deploy-message: "Deploy from GitHub Actions"
+#           enable-pull-request-comment: true
+#           enable-commit-comment: true
+#           overwrites-pull-request-comment: true
+#         env:
+#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+#      Netlifyにデプロイする。「--dir=./dist」の部分はビルド結果ができあがるディレクトリ名に変えましょう。
+#       - run: npx netlify-cli deploy --dir=./dist
+#         env:
+#           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
