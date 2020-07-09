@@ -49,8 +49,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/infiniteloading', ssr: false },
-    // { src: '~/plugins/magic-grid', ssr: false }
-    // { src: '~/plugins/vue-masonry', ssr: false }
+    { src: '~/plugins/vue-masonry', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules

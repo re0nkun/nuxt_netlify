@@ -1,24 +1,17 @@
 <template>
   <div>
-    <v-row
-      no-gutters
-    >
-      <v-col
-        v-for="id_str in datas"
-        :key="id_str"
-        cols="3"
-        xs12
-        sm8
-        md6
-      >
-        <div class="mx-2">
-          <!-- {{ id_str }} -->
-          <!-- <EmbbedTw :tweet-id="id_str" /> -->
-          <Tweet :id="id_str" />
-        </div>
-      </v-col>
-    </v-row>
     <client-only>
+      <div v-masonry transition-duration="0" item-selector=".item" class="masonry-container">
+        <div
+          v-for="(d, index) in datas"
+          :key="index"
+          v-masonry-tile
+          class="item"
+        >
+          <!-- {{ d.data.tw }} -->
+          <tweetCard :tw="d.data.tw" />
+        </div>
+      </div>
       <infinite-loading @infinite="infiniteHandler" />
     </client-only>
   </div>
@@ -26,8 +19,7 @@
 
 <script>
 import faunadb, { query as q } from 'faunadb'
-// import EmbbedTw from '@/components/Embbed_tw'
-import { Tweet } from 'vue-tweet-embed'
+import tweetCard from '~/components/tweetCard'
 
 const faunaClient = new faunadb.Client({
   secret: process.env.FAUNA_KEY
@@ -35,86 +27,57 @@ const faunaClient = new faunadb.Client({
 
 export default {
   components: {
-    // EmbbedTw
-    Tweet
-  },
-  async asyncData () {
-    try {
-      const res = await faunaClient.query(q.Map(
-        q.Paginate(q.Match(q.Index('ids_sort_by_ref_desc')), { size: 1 }),
-        q.Lambda('attr', q.Get(q.Var('attr')))
-      ))
-      console.log(res)
-
-      const idStrs = await res.data[0].data.id_strings
-
-      // 配列を分割
-      const n = 8
-      const splitIdStrs = await idStrs.reduce(
-        (acc, c, i) => i % n ? acc : [...acc, idStrs.slice(i, i + n)]
-        , []
-      )
-      return { split_id_strs: splitIdStrs }
-    } catch (err) {
-      console.log(err)
-    }
+    tweetCard
   },
   data () {
     return {
-      page: 0,
-      datas: []
-      // split_id_strs: null
+      datas: [],
+      after: null
     }
   },
-  // async created () {
-  //   const res = await faunaClient.query(q.Map(
-  //     q.Paginate(q.Match(q.Index('ids_sort_by_ref_desc')), { size: 1 }),
-  //     q.Lambda('attr', q.Get(q.Var('attr')))
-  //   ))
-
-  //   const idStrs = await res.data[0].data.id_strings
-
-  //   // 配列を分割
-  //   const n = 8
-  //   const splitIdStrs = await idStrs.reduce(
-  //     (acc, c, i) => i % n ? acc : [...acc, idStrs.slice(i, i + n)]
-  //     , []
-  //   )
-
-  //   this.split_id_strs = splitIdStrs
-  // },
+  mounted () {
+    if (typeof this.$redrawVueMasonry === 'function') {
+      this.$redrawVueMasonry()
+    }
+  },
   methods: {
     infiniteHandler ($state) {
       setTimeout(() => {
-        const arr = this.split_id_strs
+        faunaClient.query(q.Map(
+          q.Paginate(
+            q.Match(q.Index('sort_tweet_data')),
+            {
+              size: 5,
+              after: this.after
+              // after: [q.Ref(q.Collection('tweet_data'), '')]
+            }
+          ),
+          q.Lambda('attr', q.Get(q.Var('attr')))
+        )).then((res) => {
+          if (res.after) {
+            this.datas.push(...res.data)
+            $state.loaded()
 
-        // 分割した配列をpush
-        for (let i = 0; i < arr[this.page].length; i++) {
-          this.datas.push(arr[this.page][i])
-        }
-
-        $state.loaded()
-        this.page += 1
-
-        // pushする配列がない
-        let arrLength = 0
-        for (let i = 0; i < arr.length; i++) {
-          arrLength = arrLength + arr[i].length
-        }
-        if (this.datas.length === arrLength) {
-          $state.complete()
-        }
-      }, 1000)
+            // console.log(res.after[0].value)
+            this.after = [q.Ref(q.Collection('tweet_data'), res.after[0].value.id)]
+          } else {
+            this.datas.push(...res.data)
+            // $state.loaded()
+            $state.complete()
+          }
+        })
+      }, 500)
     }
   }
 }
 </script>
 
 <style scoped>
-.mx-2 {
-  height: 500px;
-  overflow: auto;
-  animation: fadeIn 3s ease 0s 1 normal;
+.item {
+  width: 25%;
+  /* height: 400px; */
+  /* overflow: auto; */
+  animation: fadeIn 2s ease 0s 1 normal;
 }
 @keyframes fadeIn {
   0% { opacity: 0 }
