@@ -2,18 +2,18 @@
   <v-app>
     <v-app-bar
       app
-      dark
       flat
       dense
       collapse-on-scroll
+      class="brown lighten-3"
     >
       <nuxt-link to="/" class="toolbar-title">
         <v-toolbar-title v-text="title" />
       </nuxt-link>
     </v-app-bar>
 
-    <v-content>
-      <v-container fluid class="py-0">
+    <v-content class="brown lighten-4">
+      <v-container fluid class="py-1">
         <nuxt />
       </v-container>
     </v-content>

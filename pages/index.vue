@@ -8,7 +8,7 @@
           v-masonry-tile
           class="item"
         >
-          <!-- {{ d.data.tw }} -->
+          <!-- <p>{{ d.data.tw }}</p> -->
           <tweetCard :tw="d.data.tw" />
         </div>
       </div>
@@ -47,7 +47,7 @@ export default {
           q.Paginate(
             q.Match(q.Index('sort_tweet_data')),
             {
-              size: 5,
+              size: 15,
               after: this.after
               // after: [q.Ref(q.Collection('tweet_data'), '')]
             }
@@ -74,10 +74,18 @@ export default {
 
 <style scoped>
 .item {
-  width: 25%;
-  /* height: 400px; */
-  /* overflow: auto; */
+  width: 100%;
   animation: fadeIn 2s ease 0s 1 normal;
+}
+@media screen and (min-width:600px) {
+  .item {
+    width: calc(100% / 2 );
+  }
+}
+@media screen and (min-width:960px) {
+  .item {
+    width: calc(100% / 4 );
+  }
 }
 @keyframes fadeIn {
   0% { opacity: 0 }

@@ -2,13 +2,12 @@
   <div>
     <v-card
       ref="card"
-      color="grey lighten-3"
-      tile
-      class="ma-1 mt-5 card"
+      color="brown lighten-5"
+      class="mx-1 my-2"
     >
-      <v-list-item class="pl-1 min-height-0">
+      <v-list-item class="pl-2 min-height-0">
         <a :href="tw.user.url" target="_blank" rel="noopener noreferrer">
-          <v-list-item-avatar size="24" class="ma-0">
+          <v-list-item-avatar size="28" class="ma-0">
             <v-img :src="tw.user.profile_image_url_https" />
           </v-list-item-avatar>
         </a>
@@ -33,19 +32,19 @@
       <v-responsive :aspect-ratio="ratio">
         <div v-if="tw.extended_entities.video">
           <video
+            :poster="image"
             :src="tw.extended_entities.video"
-            width="100%"
-            height="100%"
+            preload="none"
             controls
+            muted
+            playsinline
           />
         </div>
         <div v-else-if="tw.extended_entities.media.length < 2">
-          <!-- <div v-if="tw.extended_entities.media.length < 2"> -->
           <a id="card-link" :href="tw.extended_entities.url" target="_blank" rel="noopener noreferrer">
             <v-img
-              class="img"
               :src="image"
-              :aspect-ratio="aspectRatio"
+              :aspect-ratio="ratio"
               @error="altSrc"
             />
           </a>
@@ -64,7 +63,7 @@
               >
                 <v-img
                   :src="img"
-                  :aspect-ratio="aspectRatio"
+                  :aspect-ratio="ratio"
                   @error="altSrc"
                 />
               </v-carousel-item>
@@ -87,15 +86,11 @@ export default {
   data () {
     return {
       image: this.tw.extended_entities.media[0],
-      imgs: this.tw.extended_entities.media,
-      ratio: `${this.tw.extended_entities.width}/${this.tw.extended_entities.height}`
+      imgs: this.tw.extended_entities.media
     }
   },
   computed: {
-    // imgHeight () {
-    //   return (window.innerWidth / 4) * (this.tw.extended_entities.height / this.tw.extended_entities.width)
-    // },
-    aspectRatio () {
+    ratio () {
       return this.tw.extended_entities.width / this.tw.extended_entities.height
     }
   },
@@ -118,7 +113,9 @@ a#card-link {
 .created_at {
   color: grey;
 }
-/* .card {
-  min-height: 200px;
-} */
+video {
+  width: 100%;
+  height: auto;
+  /* object-fit: cover; */
+}
 </style>
