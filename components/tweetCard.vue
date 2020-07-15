@@ -21,12 +21,19 @@
 
       <v-divider />
 
-      <v-card-text class="pa-2">
-        <a id="card-link" :href="tw.extended_entities.url" target="_blank" rel="noopener noreferrer">
-          <div class="text-truncate">
+      <v-card-text class="card-text pa-2">
+        <div v-if="fullText" class="full-text brown lighten-5">
+          <span @click="toggleFullText">ー</span>
+          <a id="card-link" :href="tw.extended_entities.url" target="_blank" rel="noopener noreferrer">
             {{ tw.full_text }} ({{ tw.created_at }})
-          </div>
-        </a>
+          </a>
+        </div>
+        <div class="text-truncate">
+          <span @click="toggleFullText">＋</span>
+          <a id="card-link" :href="tw.extended_entities.url" target="_blank" rel="noopener noreferrer">
+            {{ tw.full_text }} ({{ tw.created_at }})
+          </a>
+        </div>
       </v-card-text>
 
       <v-responsive :aspect-ratio="ratio">
@@ -86,7 +93,8 @@ export default {
   data () {
     return {
       image: this.tw.extended_entities.media[0],
-      imgs: this.tw.extended_entities.media
+      imgs: this.tw.extended_entities.media,
+      fullText: false
     }
   },
   computed: {
@@ -97,6 +105,9 @@ export default {
   methods: {
     altSrc () {
       this.img = require('~/assets/images/no-image.png')
+    },
+    toggleFullText () {
+      this.fullText = !this.fullText
     }
   }
 }
@@ -110,12 +121,20 @@ a#card-link {
   text-decoration: none;
   color:grey;
 }
-.created_at {
-  color: grey;
-}
 video {
   width: 100%;
   height: auto;
   /* object-fit: cover; */
+}
+.card-text {
+  position: relative;
+}
+.full-text {
+  width: 100%;
+  padding: 8px;
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
 }
 </style>
