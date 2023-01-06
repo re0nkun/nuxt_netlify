@@ -14,7 +14,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "faunadb": "^2.14.2",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "twitter": "^1.7.1",
     "vue-infinite-loading": "^2.4.5",
     "vue-magic-grid": "0.0.4",
